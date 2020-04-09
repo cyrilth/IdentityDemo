@@ -94,8 +94,14 @@ namespace IdentityDemo.Controllers
                     identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
 
                     await HttpContext.SignInAsync("cookies", new ClaimsPrincipal(identity));
+
+                    return RedirectToAction("Index");
                 }
+
+                ModelState.AddModelError("", "Invalid UserName or Password");
             }
+
+            return View();
         }
 
         [Authorize]
